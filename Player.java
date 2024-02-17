@@ -1,4 +1,7 @@
-public class Player {
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class Player implements Cloneable{
     String playerName;
     Tile[] playerTiles;
     int numberOfTiles;
@@ -18,6 +21,10 @@ public class Player {
      */
     public boolean checkWinning() {
         return false;
+    }
+
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 
     /*

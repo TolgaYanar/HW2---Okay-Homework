@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class ApplicationMain {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws CloneNotSupportedException{
         Scanner sc = new Scanner(System.in);
         SimplifiedOkeyGame game = new SimplifiedOkeyGame();
 
@@ -17,6 +17,8 @@ public class ApplicationMain {
         game.createTiles();
         game.shuffleTiles();
         game.distributeTilesToPlayers();
+
+        game.sortAscendingOrder();
 
         // developer mode is used for seeing the computer players hands, to be used for debugging
         System.out.print("Play in developer's mode with other player's tiles visible? (Y/N): ");

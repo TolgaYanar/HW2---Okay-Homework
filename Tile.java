@@ -1,5 +1,5 @@
-public class Tile {
-    
+public class Tile implements Comparable<Tile>{
+
     int value;
 
     /*
@@ -10,7 +10,7 @@ public class Tile {
     }
 
     /*
-     * TODO: should check if the given tile t and this tile have the same value 
+     * TODO: should check if the given tile t and this tile have the same value
      * return true if they are matching, false otherwise
      */
     public boolean matchingTiles(Tile t) {
@@ -24,10 +24,10 @@ public class Tile {
      * return 0 if they have the same value
      * return -1 if the given tile has higher value
      */
+    @Override
     public int compareTo(Tile t) {
-        if(t.value < this.value) return 1;
-        else if(t.value > this.value) return -1;
-        else return 0;
+        if(t == null || this == null) return -1;
+        else return (int) (this.value - t.value);
     }
 
     /*
@@ -50,3 +50,4 @@ public class Tile {
     }
 
 }
+

@@ -1,10 +1,12 @@
 import java.util.Arrays;
+import java.util.List;
 
 public class SimplifiedOkeyGame {
 
     Player[] players;
     Tile[] tiles;
     int tileCount;
+    int tileIndex;
 
     Tile lastDiscardedTile;
 
@@ -40,7 +42,21 @@ public class SimplifiedOkeyGame {
      * other players get 14 tiles, this method assumes the tiles are already shuffled
      */
     public void distributeTilesToPlayers() {
-
+                for(int i = 0; i<players.length; i++) {
+            List<Tile> tileList = Arrays.asList(tiles);
+            int a = 14;
+            if(i == 0) a = 15;
+            else{
+                players[i].playerTiles = Arrays.copyOf(players[i].getTiles(), 14);
+            }
+            for(int times = 0; times<a; times++){
+                players[i].playerTiles[times] = tileList.get(tileIndex);
+                players[i].numberOfTiles++;
+                tileIndex++;
+                tileCount--;
+            }
+            tileList.toArray(tiles);
+        }
     }
 
     /*

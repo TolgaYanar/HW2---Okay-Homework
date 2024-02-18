@@ -10,3 +10,4 @@ Amina -> getLastDiscardedTile, getTopTile, shuffleTiles, discardTile(modified)
 +++ In application class, index inputs should be checked, winner should be determined if no more tiles in stack.
 
 Should be fixed ->> discarded card is not removing from players' tiles
+Yağmur --> getPlayersWithHighestLongestChain, didGameFinishes, checkWinning, findLongestChain

@@ -19,8 +19,23 @@ public class Player implements Cloneable{
      * and the extra tile does not disturb the longest chain and therefore the winning condition
      * check the assigment text for more details on winning condition
      */
+    //Yağmur
     public boolean checkWinning() {
-        return false;
+        int consecutiveNumbers = 1;
+        for (int i = 1; i < playerTiles.length; i++) {
+            if ( playerTiles[i-1].getValue() + 1 == playerTiles[i].getValue()) 
+            {
+                consecutiveNumbers += 1;
+            }
+        }
+        if ( consecutiveNumbers == 14) 
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public Object clone() throws CloneNotSupportedException {
@@ -33,9 +48,30 @@ public class Player implements Cloneable{
      * of consecutive numbers, used for checking the winning condition
      * and also for determining the winner if tile stack has no tiles
      */
+    //Yağmur
     public int findLongestChain() {
-        int longestChain = 0;
+        int longestChain;
+        ArrayList <Integer> chainNumbers = new ArrayList<>();
+        int tileNumberInChain = 1;
 
+        for (int i = 1; i < playerTiles.length; i++) {
+            if ( playerTiles[i-1].getValue() + 1 == playerTiles[i].getValue()) 
+            {
+                tileNumberInChain += 1;
+            }
+
+            else if ( playerTiles[i].getValue() - playerTiles[i-1].getValue() > 1) 
+            {
+                chainNumbers.add( tileNumberInChain);
+                tileNumberInChain = 1;
+            }
+        }
+        longestChain = chainNumbers.get(0);
+        for (int i = 1; i < chainNumbers.size() ; i++) {
+            if ( chainNumbers.get(i) > longestChain) {
+                longestChain = chainNumbers.get(i);
+            }
+        }
         return longestChain;
     }
 

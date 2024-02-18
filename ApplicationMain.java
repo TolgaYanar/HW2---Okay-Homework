@@ -81,7 +81,6 @@ public class ApplicationMain {
                     playerChoice = sc.nextInt();
 
                     // TODO: make sure the given index is correct, should be 0 <= index <= 14
-
                     game.discardTile(playerChoice);
                     game.passTurnToNextPlayer();
                 }
@@ -94,6 +93,8 @@ public class ApplicationMain {
                         // TODO: the game ended with no more tiles in the stack
                         // determine the winner based on longest chain lengths of the players
                         // use getPlayerWithHighestLongestChain method of game for this task
+                        System.out.println("No more stack! Game ended. Winners based on longest chain: " + game.getPlayerWithHighestLongestChain());
+
                     }
                 }
             }
@@ -102,7 +103,7 @@ public class ApplicationMain {
                 if(devModeOn) {
                     game.displayCurrentPlayersTiles();
                 }
-
+                
                 // computer picks a tile from tile stack or other player's discard
                 game.pickTileForComputer();
 

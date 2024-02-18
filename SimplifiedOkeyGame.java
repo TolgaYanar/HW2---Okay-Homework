@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -123,16 +124,40 @@ public class SimplifiedOkeyGame {
      * TODO: check if game still continues, should return true if current player
      * finished the game. use checkWinning method of the player class to determine
      */
-    public boolean didGameFinish() {
-        return false;
+     // Yağmur
+     public boolean didGameFinish() {
+        boolean didFinish = false;
+        if ( players[currentPlayerIndex].checkWinning() == true) 
+        {
+            didFinish = true;
+        }
+        else if ( tileCount == 0)
+        {
+            didFinish = true;
+        }
+        return didFinish;
     }
 
     /*
      * TODO: finds the player who has the highest number for the longest chain
      * if multiple players have the same length may return multiple players
      */
-    public Player[] getPlayerWithHighestLongestChain() {
-        Player[] winners = new Player[1];
+    //Yağmur
+    public ArrayList<Player> getPlayerWithHighestLongestChain() {
+        ArrayList <Player> winners = new ArrayList<>();
+        int highestLongestChain = players[0].findLongestChain();
+        for (int i = 1; i < players.length; i++) {
+            if ( players[i].findLongestChain() > highestLongestChain) {
+                highestLongestChain = players[i].findLongestChain();
+            }
+        }
+
+        for (Player player : players) {
+            if ( player.findLongestChain() == highestLongestChain) 
+            {
+                winners.add(player);
+            }
+        }
 
         return winners;
     }

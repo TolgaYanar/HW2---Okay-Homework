@@ -37,7 +37,6 @@ public class Player implements Cloneable{
             return false;
         }
     }
-
     public Object clone() throws CloneNotSupportedException {
         return super.clone();
     }
@@ -87,8 +86,24 @@ public class Player implements Cloneable{
      * this requires you to loop over the existing tiles to find the correct position,
      * then shift the remaining tiles to the right by one
      */
+    //Zeynep
     public void addTile(Tile t) {
+        if(t.getValue() > playerTiles[numberOfTiles - 1].getValue()){
+            playerTiles[numberOfTiles] = t;
+        }
 
+        else{
+            for(int i = 0; i < numberOfTiles; i++){
+                if(t.getValue() < playerTiles[i].getValue()){
+                    for(int n = numberOfTiles; n > i; n--){
+                        System.out.println(playerTiles.length);
+                        playerTiles[n] = playerTiles[n-1];
+                        playerTiles[i] = t;
+                    }
+                }
+            }
+        }
+        numberOfTiles++;
     }
 
     /*

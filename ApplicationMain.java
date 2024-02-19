@@ -77,11 +77,22 @@ public class ApplicationMain {
 
                 if(gameContinues) {
                     // if game continues we need to discard a tile using the given index by the player
-                    System.out.println("Which tile you will discard?");
-                    System.out.print("Discard the tile in index: ");
-                    playerChoice = sc.nextInt();
-
                     // TODO: make sure the given index is correct, should be 0 <= index <= 14
+                    //Yağmur
+                    boolean isPlayerChoiceCorrect = false;
+                    while ( !isPlayerChoiceCorrect) {
+                        System.out.println("Which tile you will discard?");
+                        System.out.print("Discard the tile in index: ");
+                        playerChoice = sc.nextInt();
+
+                        if ( playerChoice >= 0 && playerChoice <= 14) {
+                            isPlayerChoiceCorrect =true;
+                        }
+                        else 
+                        {
+                            System.out.println( "The index that you gave is false! It must be between 0 and 14.");
+                        }
+                    }
                     game.discardTile(playerChoice);
                     game.passTurnToNextPlayer();
                 }

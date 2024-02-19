@@ -88,27 +88,23 @@ public class Player implements Cloneable {
     // Zeynep
     public void addTile(Tile t) {
         // if (numberOfTiles < playerTiles.length)
-        if (numberOfTiles < playerTiles.length) {
-            int addT = 0; // index to which a tile should be added
-
-            boolean stopLoop = false;
-            int i = 0;
-            while (i < numberOfTiles && !stopLoop ) {
-                if (t.getValue() < playerTiles[i].getValue()) {
-                    addT = i;
-                    stopLoop = true;
-                }
-                i++;
-            }
-
-            for (int k = numberOfTiles; k > addT; k--) {
-                playerTiles[k] = playerTiles[k - 1];
-            }
-
-            playerTiles[addT] = t;
-            numberOfTiles++;
+        playerTiles = Arrays.copyOf(playerTiles, playerTiles.length + 1);
+        if(t.getValue() > playerTiles[numberOfTiles - 1].getValue()){
+            playerTiles[numberOfTiles] = t;
         }
 
+        else{
+            for(int i = 0; i < numberOfTiles; i++){
+                if(t.getValue() < playerTiles[i].getValue()){
+                    for(int n = numberOfTiles; n > i; n--){
+                        playerTiles[n] = playerTiles[n-1];
+                    }
+
+                    playerTiles[i] = t;
+                }
+            }
+        }
+        numberOfTiles++;
     }
 
     /*

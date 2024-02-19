@@ -14,6 +14,7 @@ public class ApplicationMain {
         game.setPlayerName(2, "Jane");
         game.setPlayerName(3, "Ted");
 
+    
         game.createTiles();
         game.shuffleTiles();
         game.distributeTilesToPlayers();

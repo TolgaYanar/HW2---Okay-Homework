@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Player implements Cloneable{
+public class Player implements Cloneable {
     String playerName;
     Tile[] playerTiles;
     int numberOfTiles;
@@ -9,34 +9,34 @@ public class Player implements Cloneable{
     public Player(String name) {
         setName(name);
         playerTiles = new Tile[15]; // there are at most 15 tiles a player owns at any time
-        numberOfTiles = 0; // currently this player owns 0 tiles, will pick tiles at the beggining of the game
+        numberOfTiles = 0; // currently this player owns 0 tiles, will pick tiles at the beggining of the
+                           // game
     }
 
     /*
      * TODO: checks this player's hand to determine if this player is winning
      * the player with a complete chain of 14 consecutive numbers wins the game
-     * note that the player whose turn is now draws one extra tile to have 15 tiles in hand,
-     * and the extra tile does not disturb the longest chain and therefore the winning condition
+     * note that the player whose turn is now draws one extra tile to have 15 tiles
+     * in hand,
+     * and the extra tile does not disturb the longest chain and therefore the
+     * winning condition
      * check the assigment text for more details on winning condition
      */
-    //Yağmur
+    // Yağmur
     public boolean checkWinning() {
         int consecutiveNumbers = 1;
         for (int i = 1; i < playerTiles.length; i++) {
-            if ( playerTiles[i-1].getValue() + 1 == playerTiles[i].getValue()) 
-            {
+            if (playerTiles[i - 1].getValue() + 1 == playerTiles[i].getValue()) {
                 consecutiveNumbers += 1;
             }
         }
-        if ( consecutiveNumbers == 14) 
-        {
+        if (consecutiveNumbers == 14) {
             return true;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
+
     public Object clone() throws CloneNotSupportedException {
         return super.clone();
     }
@@ -47,27 +47,25 @@ public class Player implements Cloneable{
      * of consecutive numbers, used for checking the winning condition
      * and also for determining the winner if tile stack has no tiles
      */
-    //Yağmur
+    // Yağmur
     public int findLongestChain() {
         int longestChain;
-        ArrayList <Integer> chainNumbers = new ArrayList<>();
+        ArrayList<Integer> chainNumbers = new ArrayList<>();
         int tileNumberInChain = 1;
 
         for (int i = 1; i < playerTiles.length; i++) {
-            if ( playerTiles[i-1].getValue() + 1 == playerTiles[i].getValue()) 
-            {
+            if (playerTiles[i - 1].getValue() + 1 == playerTiles[i].getValue()) {
                 tileNumberInChain += 1;
             }
 
-            else if ( playerTiles[i].getValue() - playerTiles[i-1].getValue() > 1) 
-            {
-                chainNumbers.add( tileNumberInChain);
+            else if (playerTiles[i].getValue() - playerTiles[i - 1].getValue() > 1) {
+                chainNumbers.add(tileNumberInChain);
                 tileNumberInChain = 1;
             }
         }
         longestChain = chainNumbers.get(0);
-        for (int i = 1; i < chainNumbers.size() ; i++) {
-            if ( chainNumbers.get(i) > longestChain) {
+        for (int i = 1; i < chainNumbers.size(); i++) {
+            if (chainNumbers.get(i) > longestChain) {
                 longestChain = chainNumbers.get(i);
             }
         }
@@ -83,27 +81,34 @@ public class Player implements Cloneable{
 
     /*
      * TODO: adds the given tile to this player's hand keeping the ascending order
-     * this requires you to loop over the existing tiles to find the correct position,
+     * this requires you to loop over the existing tiles to find the correct
+     * position,
      * then shift the remaining tiles to the right by one
      */
-    //Zeynep
+    // Zeynep
     public void addTile(Tile t) {
-        if(t.getValue() > playerTiles[numberOfTiles - 1].getValue()){
-            playerTiles[numberOfTiles] = t;
+        // if (numberOfTiles < playerTiles.length)
+        if (numberOfTiles < playerTiles.length) {
+            int addT = 0; // index to which a tile should be added
+
+            boolean stopLoop = false;
+            int i = 0;
+            while (i < numberOfTiles && !stopLoop ) {
+                if (t.getValue() < playerTiles[i].getValue()) {
+                    addT = i;
+                    stopLoop = true;
+                }
+                i++;
+            }
+
+            for (int k = numberOfTiles; k > addT; k--) {
+                playerTiles[k] = playerTiles[k - 1];
+            }
+
+            playerTiles[addT] = t;
+            numberOfTiles++;
         }
 
-        else{
-            for(int i = 0; i < numberOfTiles; i++){
-                if(t.getValue() < playerTiles[i].getValue()){
-                    for(int n = numberOfTiles; n > i; n--){
-                        System.out.println(playerTiles.length);
-                        playerTiles[n] = playerTiles[n-1];
-                        playerTiles[i] = t;
-                    }
-                }
-            }
-        }
-        numberOfTiles++;
     }
 
     /*
@@ -112,7 +117,7 @@ public class Player implements Cloneable{
     public int findPositionOfTile(Tile t) {
         int tilePosition = -1;
         for (int i = 0; i < numberOfTiles; i++) {
-            if(playerTiles[i].matchingTiles(t)) {
+            if (playerTiles[i].matchingTiles(t)) {
                 tilePosition = i;
             }
         }

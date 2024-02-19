@@ -78,13 +78,17 @@ public class Player implements Cloneable {
     
     public Tile getAndRemoveTile(int index) {
         ArrayList <Tile> tiles = new ArrayList<>();
+        
         for (int i = 0; i < playerTiles.length; i ++){
             tiles.add(playerTiles [i]);
         }
+
+        Tile removedTile = tiles.get(index);
+        
         tiles.remove(index);
         playerTiles = tiles.toArray(new Tile [tiles.size()]);
         numberOfTiles --;
-        return tiles.get(index);
+        return removedTile;
 
     }
     
@@ -97,21 +101,23 @@ public class Player implements Cloneable {
     // Zeynep
     public void addTile(Tile t) {
         
-        playerTiles = Arrays.copyOf(playerTiles, playerTiles.length +1);
-        playerTiles[playerTiles.length-1] = t;
-        for (int i = 0; i < playerTiles.length; i++){
-            for (int n = i + 1; n < playerTiles.length; n++){
-                if (playerTiles[i].getValue() > playerTiles[n].getValue()){
-                    Tile holdTheTile = playerTiles[i];
-                    playerTiles[i] = playerTiles[n];
-                    playerTiles [n] = holdTheTile;
-                }
-            }
+        playerTiles = Arrays.copyOf(playerTiles, playerTiles.length + 1);
+        playerTiles[playerTiles.length - 1] = t;
+
+        boolean findPlacement = false;
+
+        for(int i = 0; i < playerTiles.length - 1 && !findPlacement; i++){
             
-        }
+            if(t.getValue() < playerTiles[i].getValue()){
+                for(int n = playerTiles.length - 1; n > i; n--){
+                    playerTiles[n] = playerTiles[n-1];
+                }
+
+                playerTiles[i] = t;
+                findPlacement = true;
+            }
+        } 
         numberOfTiles++;
-        
-        
     }
 
     /*

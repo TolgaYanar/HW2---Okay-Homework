@@ -76,7 +76,11 @@ public class Player implements Cloneable {
      * TODO: removes and returns the tile in given index position
      */
     public Tile getAndRemoveTile(int index) {
-        return null;
+        Tile givenTile;
+        givenTile = playerTiles [index];
+        playerTiles[index] = null;
+        return givenTile;
+
     }
 
     /*

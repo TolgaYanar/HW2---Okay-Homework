@@ -75,14 +75,19 @@ public class Player implements Cloneable {
     /*
      * TODO: removes and returns the tile in given index position
      */
+    
     public Tile getAndRemoveTile(int index) {
-        Tile givenTile;
-        givenTile = playerTiles [index];
-        playerTiles[index] = null;
-        return givenTile;
+        ArrayList <Tile> tiles = new ArrayList<>();
+        for (int i = 0; i < playerTiles.length; i ++){
+            tiles.add(playerTiles [i]);
+        }
+        tiles.remove(index);
+        playerTiles = tiles.toArray(new Tile [tiles.size()]);
+        numberOfTiles --;
+        return tiles.get(index);
 
     }
-
+    
     /*
      * TODO: adds the given tile to this player's hand keeping the ascending order
      * this requires you to loop over the existing tiles to find the correct
@@ -91,24 +96,22 @@ public class Player implements Cloneable {
      */
     // Zeynep
     public void addTile(Tile t) {
-        // if (numberOfTiles < playerTiles.length)
-        playerTiles = Arrays.copyOf(playerTiles, playerTiles.length + 1);
-        if(t.getValue() > playerTiles[numberOfTiles - 1].getValue()){
-            playerTiles[numberOfTiles] = t;
-        }
-
-        else{
-            for(int i = 0; i < numberOfTiles; i++){
-                if(t.getValue() < playerTiles[i].getValue()){
-                    for(int n = numberOfTiles; n > i; n--){
-                        playerTiles[n] = playerTiles[n-1];
-                    }
-
-                    playerTiles[i] = t;
+        
+        playerTiles = Arrays.copyOf(playerTiles, playerTiles.length +1);
+        playerTiles[playerTiles.length-1] = t;
+        for (int i = 0; i < playerTiles.length; i++){
+            for (int n = i + 1; n < playerTiles.length; n++){
+                if (playerTiles[i].getValue() > playerTiles[n].getValue()){
+                    Tile holdTheTile = playerTiles[i];
+                    playerTiles[i] = playerTiles[n];
+                    playerTiles [n] = holdTheTile;
                 }
             }
+            
         }
         numberOfTiles++;
+        
+        
     }
 
     /*
@@ -129,7 +132,7 @@ public class Player implements Cloneable {
      */
     public void displayTiles() {
         System.out.println(playerName + "'s Tiles:");
-        for (int i = 0; i < numberOfTiles; i++) {
+        for (int i = 0; i < playerTiles.length; i++) {
             System.out.print(playerTiles[i].toString() + " ");
         }
         System.out.println();

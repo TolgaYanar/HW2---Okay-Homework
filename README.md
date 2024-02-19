@@ -11,3 +11,5 @@ Amina -> getLastDiscardedTile, getTopTile, shuffleTiles, discardTile(modified)
 
 Should be fixed ->> discarded card is not removing from players' tiles
 Yağmur --> getPlayersWithHighestLongestChain, didGameFinishes, checkWinning, findLongestChain
+Should be fixed-->The last player does not discard any tile. It should discard a tile.
+Should be fixed--> Players do not discard the proper tile. For example, players can discard the tile from the longest chain.

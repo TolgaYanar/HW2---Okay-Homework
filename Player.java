@@ -85,7 +85,10 @@ public class Player implements Cloneable {
             System.out.print(setLongestChain().get(i) + " ");
         }
     }
-
+    /**
+     * This method holds longest chain of each player as an array list of integers
+     */
+    // Yağmur 
     public ArrayList<Integer> setLongestChain ( )
     {
         ArrayList <Integer> chain = new ArrayList<>();

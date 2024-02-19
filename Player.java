@@ -5,9 +5,11 @@ public class Player implements Cloneable {
     String playerName;
     Tile[] playerTiles;
     int numberOfTiles;
+    ArrayList<Tile> playersLongestChain;
 
     public Player(String name) {
         setName(name);
+        playersLongestChain = new ArrayList<>();
         playerTiles = new Tile[15]; // there are at most 15 tiles a player owns at any time
         numberOfTiles = 0; // currently this player owns 0 tiles, will pick tiles at the beggining of the
                            // game
@@ -62,6 +64,8 @@ public class Player implements Cloneable {
                 chainNumbers.add(tileNumberInChain);
                 tileNumberInChain = 1;
             }
+             if ( i == playerTiles.length -1)
+                chainNumbers.add ( tileNumberInChain);
         }
         longestChain = chainNumbers.get(0);
         for (int i = 1; i < chainNumbers.size(); i++) {
@@ -70,6 +74,48 @@ public class Player implements Cloneable {
             }
         }
         return longestChain;
+    }
+   
+    
+    /**
+     * To display player's longest chain
+     */
+    public void displayLongestChain(){
+        for (int i = 0; i < setLongestChain().size(); i++){
+            System.out.print(setLongestChain().get(i) + " ");
+        }
+    }
+
+    public ArrayList<Integer> setLongestChain ( )
+    {
+        ArrayList <Integer> chain = new ArrayList<>();
+        ArrayList <Integer> longestChain = new ArrayList<>();
+       
+        for (int i = 1; i < playerTiles.length; i++) {
+        
+            if ( playerTiles[ i-1].getValue() +1 == playerTiles[ i].getValue())
+            {
+                if (chain.size() ==0)
+                {
+                    chain.add( playerTiles[ i-1].getValue());
+                }
+                chain.add( playerTiles[ i].getValue());
+
+            }
+            else if ( playerTiles[ i].getValue()-playerTiles[ i-1].getValue() >1)
+            {
+                chain = new ArrayList<>();
+            }
+
+            if ( chain.size() == findLongestChain())
+            {
+                longestChain = chain;
+                i = playerTiles.length;
+            }
+                
+        }
+        return longestChain;
+        
     }
 
     /*

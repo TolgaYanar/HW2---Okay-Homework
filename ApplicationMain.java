@@ -105,7 +105,16 @@ public class ApplicationMain {
                         // TODO: the game ended with no more tiles in the stack
                         // determine the winner based on longest chain lengths of the players
                         // use getPlayerWithHighestLongestChain method of game for this task
-                        System.out.println("No more stack! Game ended. Winners based on longest chain: " + game.getPlayerWithHighestLongestChain());
+                        // Işıl
+                        for (int i = 0; i < game.players.length; i++){
+                            System.out.println(game.players[i].getName() + "'s longest chain is: ");
+                            game.players[i].displayLongestChain();
+                            System.out.println();
+                        }
+                        System.out.print("No more stack! Game ended. Winners based on longest chain: ");
+                        for(int i = 0; i < game.getPlayerWithHighestLongestChain().size(); i++){
+                            System.out.print(game.getPlayerWithHighestLongestChain().get(i).getName() + " ");
+                        }
 
                     }
                 }
@@ -135,7 +144,17 @@ public class ApplicationMain {
                         // TODO: the game ended with no more tiles in the stack
                         // determine the winner based on longest chain lengths of the players
                         // use getPlayerWithHighestLongestChain method of game for this task
-                        System.out.println("No more stack! Game ended. Winners based on longest chain: " + game.getPlayerWithHighestLongestChain());
+                        //Işıl
+                        
+                        for (int i = 0; i < game.players.length; i++){
+                            System.out.println(game.players[i].getName() + "'s longest chain is: ");
+                            game.players[i].displayLongestChain();
+                            System.out.println();
+                        }
+                        System.out.print("No more stack! Game ended. Winners based on longest chain: ");
+                        for(int i = 0; i < game.getPlayerWithHighestLongestChain().size(); i++){
+                            System.out.print(game.getPlayerWithHighestLongestChain().get(i).getName() + " ");
+                        }
                     }
                 }
             }

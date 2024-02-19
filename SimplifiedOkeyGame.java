@@ -99,6 +99,7 @@ public class SimplifiedOkeyGame {
             Tile topT = tiles[lastT];
             players[currentPlayerIndex].addTile(topT);
             tiles[lastT] = null;
+            tileCount --;
             return topT.toString();
         }
 

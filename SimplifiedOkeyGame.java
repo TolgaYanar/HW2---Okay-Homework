@@ -193,27 +193,23 @@ public class SimplifiedOkeyGame {
      */
     public void discardTileForComputer() throws CloneNotSupportedException {
         Player compare = (Player) players[currentPlayerIndex].clone();
-        boolean notDiscarded = true;
-        for (int i = 0; i < compare.numberOfTiles; i++) {
-            compare = (Player) players[currentPlayerIndex].clone();
-            for (int a = i + 1; a < compare.numberOfTiles; a++) {
-                if (notDiscarded && compare.getTiles()[i].compareTo(compare.getTiles()[a]) == 0) {
-                    discardTile(i);
-                    notDiscarded = false;
-                    return;
-                }
-            }
-            Tile tile = compare.getAndRemoveTile(i);
-            if (notDiscarded && compare.findLongestChain() == players[currentPlayerIndex].findLongestChain()) {
+        for(int i = 0; i<compare.numberOfTiles-1; i++) {
+            if(compare.playerTiles[i].compareTo(compare.playerTiles[i+1]) == 0){
                 discardTile(i);
-                notDiscarded = false;
                 return;
             }
         }
-        if (notDiscarded) {
-            discardTile(0);
+        compare = (Player) players[currentPlayerIndex].clone();
+        for(int i = 0; i<compare.numberOfTiles; i++){
+            Tile tile = compare.getAndRemoveTile(i);
+            if(compare.findLongestChain() ==
+                    players[currentPlayerIndex].findLongestChain()){
+                discardTile(i);
+                return;
+            }
+            compare.addTile(tile);
         }
-        players[currentPlayerIndex].numberOfTiles--;
+        discardTile(0);
     }
 
     /*
